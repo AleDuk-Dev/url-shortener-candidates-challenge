@@ -9,6 +9,9 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.2",
+    "@prisma/adapter-libsql": "^7.6.0",
+    "@prisma/client": "^7.6.0",
     "@react-router/node": "7.12.0",
     "@react-router/serve": "7.12.0",
     "@url-shortener/engine": "workspace:*",
