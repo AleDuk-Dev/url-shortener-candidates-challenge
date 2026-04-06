@@ -9,14 +9,16 @@
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push"
+    "db:push": "prisma db push",
+    "test": "vitest run"
   },
   "exports": {
     ".": "./src/index.ts"
   },
   "devDependencies": {
     "@types/node": "^22.19.7",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.2"
   },
   "dependencies": {
     "@libsql/client": "^0.17.2",
