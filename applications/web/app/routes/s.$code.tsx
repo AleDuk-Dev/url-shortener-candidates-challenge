@@ -1,15 +1,21 @@
 import { redirect } from "react-router";
 import type { Route } from "./+types/s.$code";
-import { shortenedUrls } from "@url-shortener/engine";
+import {
+  UrlShortenerService,
+  PrismaUrlRepository,
+  prisma,
+} from "@url-shortener/engine";
 
-export function loader({ params }: Route.LoaderArgs) {
+const repository = new PrismaUrlRepository(prisma);
+const service = new UrlShortenerService(repository);
+
+export async function loader({ params }: Route.LoaderArgs) {
   const { code } = params;
+  const originalUrl = await service.resolveCode(code);
 
-  const url = shortenedUrls.get(code);
-
-  if (!url) {
-    throw new Response("Not Found", { status: 404 });
+  if (!originalUrl) {
+    throw new Response("Short URL not found", { status: 404 });
   }
 
-  return redirect(url);
+  return redirect(originalUrl);
 }
