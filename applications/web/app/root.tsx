@@ -2,6 +2,7 @@ import {
   isRouteErrorResponse,
   Links,
   Meta,
+  NavLink,
   Outlet,
   Scripts,
   ScrollRestoration,
@@ -32,8 +33,40 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body suppressHydrationWarning>
+        <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm border-b border-slate-100">
+          <nav className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+            <span className="font-bold text-slate-800 text-base tracking-tight">
+              URL Shortener
+            </span>
+            <div className="flex items-center gap-6">
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-sm font-medium text-violet-600"
+                    : "text-sm text-slate-600 hover:text-violet-600 transition-colors"
+                }
+              >
+                Home
+              </NavLink>
+              <NavLink
+                to="/urls"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-sm font-medium text-violet-600"
+                    : "text-sm text-slate-600 hover:text-violet-600 transition-colors"
+                }
+              >
+                Stats
+              </NavLink>
+            </div>
+          </nav>
+        </header>
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+          {children}
+        </main>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -62,14 +95,14 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
+    <div className="rounded-2xl bg-red-50 border border-red-200 p-8 mt-8 text-center">
+      <h1 className="text-2xl font-bold text-red-700 mb-2">{message}</h1>
+      <p className="text-red-600">{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="mt-4 text-left w-full p-4 overflow-x-auto bg-red-100 rounded-xl text-xs text-red-800">
           <code>{stack}</code>
         </pre>
       )}
-    </main>
+    </div>
   );
 }

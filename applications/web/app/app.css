@@ -7,9 +7,10 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  min-height: 100vh;
+  background: linear-gradient(
+    160deg,
+    oklch(0.97 0.01 280) 0%,
+    oklch(1 0 0) 40%
+  );
 }
